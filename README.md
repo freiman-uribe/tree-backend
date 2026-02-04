@@ -112,7 +112,7 @@ Edita el archivo `.env` con tus configuraciones:
 ```env
 PORT=3000
 NODE_ENV=development
-MONGO_URL=mongodb://localhost:27017/tree-api
+MONGODB_URI=mongodb://localhost:27017/tree-api
 LOG_LEVEL=info
 ```
 
@@ -120,7 +120,7 @@ LOG_LEVEL=info
 
 - `PORT`: Puerto donde se ejecutará el servidor (default: 3000)
 - `NODE_ENV`: Entorno de ejecución (development, production)
-- `MONGO_URL`: URL de conexión a MongoDB
+- `MONGODB_URI`: URL de conexión a MongoDB
 - `LOG_LEVEL`: Nivel de logs (error, warn, info, debug)
 
 ### 4. Asegurar MongoDB en ejecución
@@ -136,7 +136,7 @@ sudo systemctl start mongod
 
 **Opción B: MongoDB Atlas (Cloud)**
 ```env
-MONGO_URL=mongodb+srv://usuario:password@cluster.mongodb.net/tree-api
+MONGODB_URI=mongodb+srv://usuario:password@cluster.mongodb.net/tree-api
 ```
 
 ## ⚡ Inicio Rápido

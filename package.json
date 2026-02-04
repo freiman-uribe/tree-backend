@@ -2,7 +2,7 @@
   "name": "api-tree",
   "version": "1.0.0",
   "description": "Api de nodos",
-  "main": "src/infrastructure/server.ts",
+  "main": "dist/infrastructure/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec ts-node src/infrastructure/server.ts",
@@ -12,6 +12,9 @@
   },
   "author": "Freiman Uribe",
   "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/mongoose": "^5.11.97",

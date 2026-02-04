@@ -10,7 +10,7 @@ import { logger } from "./utils/logger";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017/tree-api";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/tree-api";
 
 // Middleware
 app.use(express.json());
@@ -30,9 +30,9 @@ app.use(errorHandler);
 
 // Conexión a MongoDB
 mongoose
-  .connect(MONGO_URL)
+  .connect(MONGODB_URI)
   .then(() => {
-    logger.info("Conexión exitosa a MongoDB", { database: MONGO_URL });
+    logger.info("Conexión exitosa a MongoDB", { database: MONGODB_URI });
   })
   .catch((error) => {
     logger.error("Error al conectar a MongoDB", { error: error.message });

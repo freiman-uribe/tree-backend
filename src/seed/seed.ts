@@ -6,7 +6,7 @@ async function seed() {
   try {
     // Conexión a MongoDB
     await mongoose.connect(
-        process.env.MONGO_URL || "mongodb://localhost:27017/tree-api",
+        process.env.MONGODB_URI || "mongodb://localhost:27017/tree-api",
     );
 
     console.log("Conectado a MongoDB");
