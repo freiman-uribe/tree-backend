@@ -605,7 +605,165 @@ La aplicación incluye un sistema de logging estructurado con niveles:
 ```env
 LOG_LEVEL=debug
 ```
+## 🧪 Ejemplos con cURL
 
+### 1. Crear un nodo raíz
+
+```bash
+curl -X POST https://tree-backend-1aye.onrender.com/api/nodes \
+  -H "Content-Type: application/json" \
+  -H "Accept-Language: es" \
+  -d '{}'
+```
+
+**Respuesta:**
+```json
+{
+  "status": "success",
+  "data": {
+    "id": 1,
+    "parent": null,
+    "title": "uno",
+    "created_at": "2026-02-04 10:30:00"
+  }
+}
+```
+
+### 2. Crear un nodo hijo
+
+```bash
+curl -X POST https://tree-backend-1aye.onrender.com/api/nodes \
+  -H "Content-Type: application/json" \
+  -H "Accept-Language: en" \
+  -d '{"parent": 1}'
+```
+
+**Respuesta:**
+```json
+{
+  "status": "success",
+  "data": {
+    "id": 2,
+    "parent": 1,
+    "title": "two",
+    "created_at": "2026-02-04 10:31:00"
+  }
+}
+```
+
+### 3. Listar nodos padres
+
+```bash
+curl -X GET https://tree-backend-1aye.onrender.com/api/nodes/parents \
+  -H "Accept-Language: es"
+```
+
+**Respuesta:**
+```json
+{
+  "status": "success",
+  "results": 2,
+  "data": [
+    {
+      "id": 1,
+      "parent": null,
+      "title": "uno",
+      "created_at": "2026-02-04 10:30:00"
+    }
+  ]
+}
+```
+
+### 4. Listar nodos hijos (con profundidad)
+
+```bash
+curl -X GET "https://tree-backend-1aye.onrender.com/api/nodes/children?parentId=1&depth=2" \
+  -H "Accept-Language: fr" \
+  -H "Timezone: Europe/Paris"
+```
+
+**Respuesta:**
+```json
+{
+  "status": "success",
+  "results": 3,
+  "data": [
+    {
+      "id": 2,
+      "parent": 1,
+      "title": "deux",
+      "created_at": "2026-02-04 11:31:00"
+    }
+  ]
+}
+```
+
+### 5. Eliminar un nodo
+
+```bash
+curl -X DELETE https://tree-backend-1aye.onrender.com/api/nodes/5
+```
+
+**Respuesta:**
+```json
+{
+  "status": "success",
+  "message": "Nodo eliminado exitosamente"
+}
+```
+
+### 6. Crear nodo con zona horaria personalizada
+
+```bash
+curl -X POST https://tree-backend-1aye.onrender.com/api/nodes \
+  -H "Content-Type: application/json" \
+  -H "Accept-Language: de" \
+  -H "Timezone: America/New_York" \
+  -d '{"parent": 1}'
+```
+
+**Respuesta:**
+```json
+{
+  "status": "success",
+  "data": {
+    "id": 3,
+    "parent": 1,
+    "title": "drei",
+    "created_at": "2026-02-04 05:32:00"
+  }
+}
+```
+
+### 7. Manejo de errores - Nodo padre inexistente
+
+```bash
+curl -X POST https://tree-backend-1aye.onrender.com/api/nodes \
+  -H "Content-Type: application/json" \
+  -d '{"parent": 999}'
+```
+
+**Respuesta (404):**
+```json
+{
+  "status": "error",
+  "message": "El nodo padre con ID 999 no existe"
+}
+```
+
+### 8. Manejo de errores - Eliminar nodo con hijos
+
+```bash
+curl -X DELETE https://tree-backend-1aye.onrender.com/api/nodes/1
+```
+
+**Respuesta (409):**
+```json
+{
+  "status": "error",
+  "message": "No se puede eliminar un nodo que tiene nodos hijos"
+}
+```
 **Ejemplo de logs:**
 ```
 [2026-02-04T10:30:00.000Z] [INFO] API corriendo en http://localhost:3000
